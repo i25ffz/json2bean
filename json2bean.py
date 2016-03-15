@@ -9,6 +9,7 @@ import json
 import getopt
 import os
 
+REPL_CHARS = {'_', '-'}
 
 DEBUG = False
 def debugLog(*s):
@@ -21,12 +22,13 @@ def upperStr(str):
 
 # replace char '_'
 def replaceStr(fld):
-    c_pos = fld.find('_')
-    if c_pos > 0:
-        fld = fld[:c_pos] + upperStr(fld[c_pos + 1:])
-        return replaceStr(fld)
-    else:
-        return fld
+    for ch in REPL_CHARS:
+        c_pos = fld.find(ch)
+        if c_pos > 0:
+            fld = fld[:c_pos] + upperStr(fld[c_pos + 1:])
+            return replaceStr(fld)
+
+    return fld
 
 # gen javabean from json file
 
